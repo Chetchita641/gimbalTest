@@ -47,7 +47,7 @@ class Gimbal():
     async def power_on(self):
         try:
             print("Gimbal powering on")
-            #self.socket.connect((self.ipaddress, self.port))
+            self.socket.connect((self.ipaddress, self.port))
         except Exception as e:
             print(e)
             quit()
@@ -57,7 +57,7 @@ class Gimbal():
     def close(self):
         time.sleep(DELAY)
         self.home()
-        #self.socket.close()
+        self.socket.close()
 
     def get_response(self):
         output = self.response
@@ -66,16 +66,14 @@ class Gimbal():
 
     def home(self):
         signal = 'RE\nA\n'
-        print("sending home signal")
-        #self.socket.send(signal.encode())
+        self.socket.send(signal.encode())
 
     def send_movement(self, movement):
         signal = MovementTrans[movement]
         if not signal:
             print("signal not found")
             return
-        print("sending movement signal {}".format(movement))
-        #self.socket.send(signal.encode())
+        self.socket.send(signal.encode())
 
     async def full_rotation(self):
         top_left = "TP{}\nPP{}\nA\n".format(ABS_MAX, ABS_MAX)
@@ -88,8 +86,7 @@ class Gimbal():
 
     async def send_sequence(self, sequence):
         for signal in sequence:
-            print("sending signal {}".format(signal))
-            #self.socket.send(signal.encode())
+            self.socket.send(signal.encode())
             await asyncio.sleep(DELAY)
 
     """
