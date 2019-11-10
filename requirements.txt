@@ -1,0 +1,2 @@
+asyncio==3.4.3
+keyboard==0.13.4
