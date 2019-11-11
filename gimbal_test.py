@@ -33,7 +33,7 @@ port = args.port
 
 if not manual and not continuous and not reps and not timespan:
     parser.print_help()
-    quit()
+    sys.exit()
 
 MovementTrans = {'u': 'TO100\n', 'd': 'TO-100\n', 'l': 'PO-100\n', 'r': 'PO100\n'}
 
@@ -50,7 +50,7 @@ class Gimbal():
             self.socket.connect((self.ipaddress, self.port))
         except Exception as e:
             print(e)
-            quit()
+            sys.exit()
         self.home()
         await asyncio.sleep(DELAY)
     
@@ -114,7 +114,7 @@ async def main():
                     print(response)
                 keyboard.wait()
             except Exception as e:
-                quit()
+                sys.exit()
 
     if continuous:
         while True:
